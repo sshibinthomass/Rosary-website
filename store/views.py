@@ -139,3 +139,6 @@ def product_detail(request, slug):
 def index(request):
     state=zip(states,stateName)
     return render(request, 'store/index.html',{'state':state})
+
+def contact(request):
+    return render(request, 'store/contact.html')
