@@ -273,7 +273,7 @@
 
               <div class="col">
                 <div class="row px-1">
-                  <div class="col-6">
+                  <div class="col-5 p-0">
                     <label for="select"><h5>Qty</h5></label>
                     <select id="{{product.id}}sel">
                       <option value="1">1</option>
@@ -298,9 +298,10 @@
                       <option value="20">20</option>
                     </select>
                   </div>
-                  <div class="col-6 text-end"><span class="h5 fw-bold">
-                    <div class="text-center">
-                    &#8377; {{ product.price }}
+                  <div class="col-2 p-0 text-right"><strike>&#8377;{{product.orgprice}}</strike></div>
+                  <div class="col-5 text-end p-0"><span class="h5 fw-bold">
+                    <div class="text-left">
+                     :  &#8377; {{ product.price }}
                   </span></div>
                 </div>
                   <div class="col-16 pt-2">
