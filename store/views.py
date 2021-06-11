@@ -146,3 +146,9 @@ def contact(request):
 
 def faq(request):
     return render(request, 'store/faq.html')
+
+def photo(request):
+    products = Product.products
+    products=products.order_by('pid')
+    state=zip(states,stateName)
+    return render(request, 'store/photo.html', {'products': products})
