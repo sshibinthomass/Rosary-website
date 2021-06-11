@@ -352,7 +352,9 @@
               </p>
               <p class="card-text text-danger text-center pt-0  px-0 m-0" >Transist Risk: {{product.risk}}</p>
               <p class="card-text text-center pt-0  px-0 m-0" style="font-size: 12px;">Size: {{product.size}} Inches
+                {% if product.orgprice != product.price %}
                 <strike>&#8377;{{product.orgprice}}</strike>
+                {% endif %}
               </p>
 
               <div class="col">
