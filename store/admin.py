@@ -29,10 +29,9 @@ class WateringAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['pid','title','image',
-                    'risk','is_active','maintenance','tag']
+    list_display = ['pid','title','Nickname','is_active','image','maintenance','tag']
     list_filter = [ 'is_active','maintenance','tag','price']
-    list_editable = ['image', 'is_active','maintenance','tag']
+    list_editable = ['is_active','maintenance','image','tag']
     prepopulated_fields = {'slug': ('title',)}
     list_per_page= 20
     ordering=['-pid']

@@ -93,6 +93,7 @@ def product_all(request):
             pass
         try:
             val=(request.POST["state"])[-1]
+            typeName=(request.POST["state"][:-2])
             if(val=="L"):
                 products=Product.products.filter(risk=1)
             elif(val=="M"):
@@ -142,3 +143,6 @@ def index(request):
 
 def contact(request):
     return render(request, 'store/contact.html')
+
+def faq(request):
+    return render(request, 'store/faq.html')

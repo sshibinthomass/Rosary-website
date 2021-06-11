@@ -6,7 +6,6 @@ from django.db.models import F
 
 def categories(request):
     Product.objects.update(price=F('orgprice')-F('disprice'))
-    print("Hello")
     return {
         'categories': Category.objects.all()
     }

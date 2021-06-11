@@ -6,12 +6,12 @@
   <div class="album py-5 bg-light">
     <div class="mx-2 mt-5">
       <div class="h6 mb-0 text-center">
-        <div>
+        <div class="mb-1">
           <button
           type="button"
           id="{{product.id}}"
           value="{{product.id}}"
-          class="btn btn-secondary btn-lg btn-block"
+          class="btn btn-secondary btn-block"
           data-bs-toggle="modal"
           data-bs-target="#exampleModal{{product.id}}"
         >
@@ -42,7 +42,7 @@
             <table class="table table-hover mt-3 text-center">
               <tbody>
               <tr>
-                  <td class="pb-0">Delivery available only in South India (Due to covid)</td>
+                  <td class="pb-0">Delivery limited due to covid.</td>
               </tr>
               <tr>
                   <td class="pb-0">Size and Cost is Mentioned bellow each Plant (Minimum order is 5 plants)</td>
@@ -54,7 +54,7 @@
                   <td class="pb-0">Plants will be sent bareroot</td>
               </tr>
               <tr>
-                  <td class="pb-0">Any Damage will be replaced with customers next order</td>
+                  <td class="pb-0">Any Damage will be replaced with customers next order.</td>
               </tr>
               <tr>
                   <td class="pb-0">Only after payment order will be confirmed</td>
@@ -105,6 +105,7 @@
         </div>
         </div> 
         </div>
+
         <marquee behavior="scroll" direction="left" style="background-color: rgba(255, 255, 0, 0.589);">Please send a Screenshoot of <strong>Cart page in WhatsApp or Messager </strong> to proceed further.</marquee>
 
         <div class="h4 p-3 mb-2 bg-success text-white">{{typeName}}</div>
@@ -144,7 +145,7 @@
           {% endifequal %}
         </div>
         <br>
-      <div class="mb-3">
+      <div class="mb-1">
         <div class="btn-group pb-1">
           <form action="/" method="post">
             {% csrf_token %}
@@ -181,7 +182,6 @@
   
               {% csrf_token %}
                 <button class="btn btn-success text-center p-0" type="submit" name="btn" value="all">All</button>
-                <button class="btn btn-outline-success text-center p-0" type="submit" name="cat" value="9">Indoor</button> 
                 <button class="btn btn-outline-success text-center p-0" type="submit" name="cat" value="1">Sedum /Ground Cover</button>
                 <button class="btn btn-outline-success text-center p-0" type="submit" name="cat" value="2">Cactus</button>
                 <button class="btn btn-outline-success text-center p-0" type="submit" name="cat" value="3">Hanging</button>
@@ -242,10 +242,92 @@
       </div>      
         </div>
       </div>
-
-
-
     </div>
+
+    <div>
+      <button
+      type="button"
+      id="{{product.id}}"
+      value="{{product.id}}"
+      class="btn btn-secondary"
+      data-bs-toggle="modal"
+      data-bs-target="#deliveryModal{{product.id}}"
+    >
+      Additional Delivery charges depending on place(Click here)
+    </button>
+    <!-- Modal -->
+    <div
+    class="modal fade text-left"
+    id="deliveryModal{{product.id}}"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Delivery Charges
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <p class="card-text">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Location</th>
+                <th scope="col">Cost</th>
+                <th scope="col">Plants</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Tamil Nadu</th>
+                <td>80</td>
+                <td>12</td>
+              </tr>
+              <tr>
+                <th scope="row">South India(except T.N)</th>
+                <td>100</td>
+                <td>12</td>
+              </tr>
+              <tr>
+                <th scope="row">Other parts of India</th>
+                <td>150</td>
+                <td>6</td>
+              </tr>
+              <tr>
+                <th scope="row">Other parts of India</th>
+                <td>200</td>
+                <td>12</td>
+              </tr>
+            </tbody>
+          </table>  
+        </p>                   
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Agree
+          </button>
+          <form action="/basket/">
+            <button type="submit" class="btn btn-success">
+              Go to Cart
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    </div> 
+    </div>
+
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3 destinations_row mt-0">
         {% for product in products %}
 
@@ -269,7 +351,9 @@
                   ><strong>{{product.pid}}. {{ product.title }}</strong></a>
               </p>
               <p class="card-text text-danger text-center pt-0  px-0 m-0" >Transist Risk: {{product.risk}}</p>
-              <p class="card-text text-center pt-0  px-0 m-0" style="font-size: 12px;">Size: {{product.size}} Inches</p>
+              <p class="card-text text-center pt-0  px-0 m-0" style="font-size: 12px;">Size: {{product.size}} Inches
+                <strike>&#8377;{{product.orgprice}}</strike>
+              </p>
 
               <div class="col">
                 <div class="row px-1">
@@ -298,10 +382,9 @@
                       <option value="20">20</option>
                     </select>
                   </div>
-                  <div class="col-2 p-0 text-right"><strike>&#8377;{{product.orgprice}}</strike></div>
                   <div class="col-5 text-end p-0"><span class="h5 fw-bold">
-                    <div class="text-left">
-                     :  &#8377; {{ product.price }}
+                    <div class="text-center">
+                       &#8377; {{ product.price }}
                   </span></div>
                 </div>
                   <div class="col-16 pt-2">
@@ -363,7 +446,7 @@
                           </tr>
                           <tr>
                               <td>Size</td>
-                              <td>: {{product.size}} Inches</td>
+                              <td>: {{product.size}} Inches </td>
                           </tr>
                           <tr>
                               <td>Price</td>
