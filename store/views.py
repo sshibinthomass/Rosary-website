@@ -47,16 +47,6 @@ def product_all(request):
                 typeName="Fast Sellingr"
         except:
             pass
-        #Sort
-        try:
-            if(request.POST["sort"]=="new"):
-                products=products.reverse()
-            elif(request.POST["sort"]=="l-h"):
-                products=products.order_by('price').reverse()
-            elif(request.POST["sort"]=="h-l"):
-                products=products.order_by('price')
-        except:
-            pass
         #Category
         try:
             if(request.POST["cat"]=="1"):
@@ -120,6 +110,17 @@ def product_all(request):
             pass
     products=products.order_by('pid')
     state=zip(states,stateName)
+    if request.method=='POST':
+        #Sort
+        try:
+            if(request.POST["sort"]=="new"):
+                products=products.reverse()
+            elif(request.POST["sort"]=="l-h"):
+                products=products.order_by('price')
+            elif(request.POST["sort"]=="h-l"):
+                products=products.order_by('price').reverse()
+        except:
+            pass
     return render(request, 'store/home.html', {'products': products,'typeName':typeName,'state':state})
 
 def risk_list(request,risk_slug=None):
@@ -149,6 +150,8 @@ def faq(request):
 
 def photo(request):
     products = Product.products
+    for e in Product.objects.all():
+        print(e.title)
     products=products.order_by('pid')
     state=zip(states,stateName)
     return render(request, 'store/photo.html', {'products': products})
