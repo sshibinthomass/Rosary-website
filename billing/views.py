@@ -53,3 +53,13 @@ def plantlist(request):
     lst,l2,price=find_val(val)
     return render(request,'store/plantlist.html',{'plantID':lst,'l2':l2,'price':price})
 
+def local(request):
+  pid=[]
+  name=[]
+  photo=[]
+  for i in Product.objects.order_by('pid'):
+    name.append(i.Nickname)
+    pid.append(i.pid)
+    photo.append(i.image.url)
+  prod=zip(pid,name,photo)
+  return render(request,'store/local.html',{'prod':prod})
