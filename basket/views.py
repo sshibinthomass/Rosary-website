@@ -8,16 +8,15 @@ from .basket import Basket
 
 def basket_summary(request):
     basket = Basket(request)
-    print("Hello")
+    print("1")
     if request.method == 'POST':
-        print("Hi")
         if(request.POST["button1"]=="Add to cart"):
             print("added")
 
     return render(request, 'store/basket/summary.html', {'basket': basket})
 
-
 def basket_add(request):
+    print("2")
     basket = Basket(request)
     if request.POST.get('action') == 'post':
         print(request.POST.get('productqty'))
@@ -35,6 +34,7 @@ def basket_add(request):
 
 
 def basket_delete(request):
+    print("3")
     basket = Basket(request)
     if request.POST.get('action') == 'post':
         product_id = int(request.POST.get('productid'))
@@ -47,6 +47,7 @@ def basket_delete(request):
 
 
 def basket_update(request):
+    print("4")
     basket = Basket(request)
     if request.POST.get('action') == 'post':
         product_id = int(request.POST.get('productid'))
