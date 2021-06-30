@@ -34,4 +34,4 @@ class ProductAdmin(admin.ModelAdmin):
     list_editable = ['is_active','maintenance','image','tag']
     prepopulated_fields = {'slug': ('title',)}
     list_per_page= 20
-    ordering=['-pid']
+    ordering=['pid']
