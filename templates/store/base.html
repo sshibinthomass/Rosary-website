@@ -1,4 +1,6 @@
 {% load static %}
+{% load mathfilters %}
+
 <!DOCTYPE html>
 <html>
 
@@ -535,7 +537,19 @@
 </svg>
 </a>
 
-<a class="btn btn-success fab fa-whatsapp pr-4" href="https://wa.me/message/Z73MZA6IMYFWO1" target="_blank" role="button" style="position: fixed; bottom: 55px; right: 10px; " >
+<a class="btn btn-success fab fa-whatsapp pr-4" href="https://api.whatsapp.com/send?phone=%2B917904050237&text=*Hello, i have chosen the following plants from your site*
+%0a
+{% for item in basket %}
+   {% with product=item.product %}{{product.pid}}.{{ product.title }}-{{item.qty}}*{{product.price}}={{item.qty|mul:product.price}}/- %0a{% endwith %}
+{% endfor %}
+*Total Plants={{basket|length}}*%0a
+*Total Price={{basket.get_total_price}}*%2Bdelivery%0a%0a
+*Plant Id and qty*%0a 
+{% for item in basket %}{% with product=item.product %}{{product.pid}}-{{item.qty}},{% endwith %}{% endfor %}%0a 
+{% if basket.get_total_price > 700 %}
+*%2BColmplementary plant*
+{% endif %}  
+" target="_blank" role="button" style="position: fixed; bottom: 55px; right: 10px; " >
   
 </a>
 <div class="fixed-bottom">

@@ -151,7 +151,7 @@
 *Plant Id and qty*%0a 
 {% for item in basket %}{% with product=item.product %}{{product.pid}}-{{item.qty}},{% endwith %}{% endfor %}%0a 
 {% if basket.get_total_price > 700 %}
-*%2BColmplementary plant*
+*%2BComplementary plant*
 {% endif %}  
 ">Place Order</a>
     </div>
