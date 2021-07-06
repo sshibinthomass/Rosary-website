@@ -7,5 +7,8 @@ app_name = 'billing'
 urlpatterns = [
     path('plantfinder', views.plantfinder,name='plantfinder'),
     path('plantlist',views.plantlist,name='plantlist'),
+    path('lplantfinder', views.lplantfinder,name='lplantfinder'),
+    path('lplantlist',views.lplantlist,name='lplantlist'),
     path('local',views.local,name='local'),
+    path('localava',views.localava,name='localava'),
 ]
