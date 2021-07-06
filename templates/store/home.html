@@ -3,160 +3,7 @@
 {% load static %}
 
 {% block content %}
-<main class="pt-5 mt-1">
-  <div class="container">
-    <a id="cart"></a>
-    <div class="mb-1 text-center">
-      <div class="btn-group pb-0">
-        <a type="button" class="btn btn-secondary btn-block" href="#catalogue"><strong>Catalogue (click here)</strong></a>
-      </div>
-  </div>
-
-    <marquee behavior="scroll" direction="left" style="background-color: rgba(255, 255, 0, 0.589);">After Adding required plants to cart please click <b>Place order</b>.</marquee>
-
-    <div class="h4 p-0 m-0 mb-1 pb-1 bg-success text-center text-white">Selected Plants</div>
-    {% for item in basket %}
-    {% with product=item.product %}
-    <div data-index="{{product.id}}" class="row mb-1 border product-item mx-0">
-      <div class="col-md-0 col-lg-10 ps-md-3 ps-lg-10 px-0">
-        <a href="{{ product.get_absolute_url }}" class="text-decoration-none text-reset">
-          <h1 class="h6 m-0 text-center">{{product.pid}}. {{ product.title }} - <span class="h6 fw-bold">{{ product.price }}x{{item.qty}} = &#8377;{{item.qty|mul:product.price}}</span></h1>
-        </a>
-        
-              <table class="table table-hover p-0 m-0">
-                <tbody>
-                <tr>
-                  <td class="p-0 text-center">
-                    <img
-                    class="img-fluid
-                    alt="Responsive image"
-                    src="{{ product.image.url }}"
-                    width="50px"
-                  />
-                  </td>
-                  <td class="p-0 text-center">
-                    <button type="button"
-                    data-index="{{product.id}}"
-                    class="btn btn-outline-secondary btn-sm p-1 mt-2"
-                    data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop{{product.id}}" >
-                    Update
-                  </button>
-                  <!--Modal-->
-                  <div
-                  class="modal fade"
-                  id="staticBackdrop{{product.id}}" data-bs-backdrop="static"
-                  tabindex="-1"
-                  aria-labelledby="exampleModalLabel"
-                  aria-hidden="true"
-                >
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                          Update {{ product.title }}
-                        </h5>
-                      </div>
-                      <p class="card-text">
-                        <a
-                          class="text-dark text-decoration-none"
-                          href="{{ product.get_absolute_url }}"
-                          >{{ product.title }}</a
-                        >
-                      </p>
-                      <div class="modal-body pb-0 mb-0">
-                        <div class="text-center">
-                          <label for="select">Change Qty: </label>
-                          <select id="select{{product.id}}">
-                            <option selected>
-                            {{item.qty}}
-                            </option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
-                            <option value="20">20</option>
-                          </select>
-
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" id="update-button" data-index="{{product.id}}"
-                        class="btn btn-outline-secondary btn-sm update-button">
-                        Update Value
-                        </button>
-                      </div>
-                      </div>
-                    </div>
-                  </div>
-                  </td>
-                  <td class="p-0 text-center">
-                    <button type="submit" id="delete-button" data-index="{{product.id}}"
-                      class="btn btn-outline-danger btn-sm delete-button p-1 mt-2">
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-      </div>
-    </div>
-    {% endwith %}
-    {% endfor %}
-    <div class="col-12 text-end">
-      <h5 class="h6 fw-bold m-0 d-inline-flex">Total Plants:</h5>     {{basket|length}} 
-    </div>
-    <div class="col-12 text-end">
-      <h5 class="h6 fw-bold m-0 d-inline-flex">Total: &#8377;</h5><div id="subtotal" class="h6 fw-bold d-inline-flex m-0"> {{basket.get_total_price}} 
-      </div>
-      {% if basket.get_total_price > 0 %}
-      <small>+ delivery charges</small>
-      {% endif %}  
-
-    </div>
-    <div class="alert alert-dark text-center m-0 mb-2 p-0" role="alert">
-      After Adding required plants to cart please click <b>Place order</b>. 
-        </div>
-  </div>
-  <div class="text-center">
-    <div class="btn-group pb-1">
-      <form action="/basket/" method="post">        
-        {% csrf_token %}
-          <button class="btn btn-danger" type="submit" name="button1" value="clear">Empty cart</button>
-        </form>
-        </div>
-    <div class="btn-group pb-1">
-      <a type="button" class="btn btn-secondary" target="_blank" href="https://api.whatsapp.com/send?phone=%2B917904050237&text=*Hello, i have chosen the following plants from your site*
-%0a
-{% for item in basket %}
-   {% with product=item.product %}{{product.pid}}.{{ product.title }}-{{item.qty}}*{{product.price}}={{item.qty|mul:product.price}}/- %0a{% endwith %}
-{% endfor %}
-*Total Plants={{basket|length}}*%0a
-*Total Price={{basket.get_total_price}}*%2Bdelivery%0a%0a
-*Plant Id and qty*%0a 
-{% for item in basket %}{% with product=item.product %}{{product.pid}}-{{item.qty}},{% endwith %}{% endfor %}%0a 
-{% if basket.get_total_price > 700 %}
-*%2BComplementary plant*
-{% endif %}  
-">Place Order</a>
-    </div>
-  </div>
-  <a id="catalogue"></a>
+<main class="pt-2 mt-1">
   <div class="album pb-5 bg-light">
     <div class="mx-2 mt-5">
       <div class="h6 mb-0 text-center">
@@ -249,7 +96,7 @@
               >
                 Agree
               </button>
-              <form action="/">
+              <form action="/basket/">
                 <button type="submit" class="btn btn-success">
                   Check Bill
                 </button>
@@ -304,7 +151,7 @@
                     Select State
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <form action="/#catalogue" method="post">
+                    <form action="/" method="post">
                         {% csrf_token %}
                         {% for i,j in state %}
                         <li><button type="submit" name="state" value="{{i}}" class="dropdown-item">{{j}}</button></li>
@@ -317,25 +164,25 @@
         <br>
       <div class="mb-1">
         <div class="btn-group pb-1">
-          <form action="/#catalogue" method="post">
+          <form action="/" method="post">
             {% csrf_token %}
             <button type="submit" name="btn" value="all" class="btn btn-success  text-white text-center">All Plants</button>
           </form>
         </div>
         <div class="btn-group pb-1">
-          <form action="/#catalogue" method="post">
+          <form action="/" method="post">
             {% csrf_token %}
             <button type="submit" name="btn" value="offer" class="btn btn-success  text-white text-center">Offer</button>
           </form>
         </div>
         <div class="btn-group pb-1">
-          <form action="/#catalogue" method="post">
+          <form action="/" method="post">
             {% csrf_token %}
             <button type="submit" name="btn" value="new" class="btn btn-success  text-white text-center">New</button>
           </form>
         </div>
         <div class="btn-group pb-1">
-          <form action="/#catalogue" method="post">
+          <form action="/" method="post">
             {% csrf_token %}
             <button type="submit" name="btn" value="fast" class="btn btn-success  text-white text-center">Fast Selling</button>
           </form>
@@ -347,7 +194,7 @@
         </a>
         <div class="collapse" id="collapseExample">
           <div class="card card-body">
-            <form action="/#catalogue" method="post">
+            <form action="/" method="post">
               <div class="d-grid gap-2">
   
               {% csrf_token %}
@@ -374,7 +221,7 @@
           </a>
           <div class="collapse" id="collapseExampleSun">
             <div class="card card-body">
-                <form action="/#catalogue" method="post">
+                <form action="/" method="post">
                   {% csrf_token %}
                   <div class="d-grid gap-2">
                     <button type="submit" name="flt" value="all" class="btn btn-outline-success text-center p-0">All</button>
@@ -398,7 +245,7 @@
           </a>
           <div class="collapse" id="collapseExampleRisk">
             <div class="card card-body">
-                <form action="/#catalogue" method="post">
+                <form action="/" method="post">
                   {% csrf_token %}
                   <div class="d-grid gap-2">
 
@@ -585,15 +432,14 @@
                 <div
                 class="modal fade text-left"
                 id="exampleModal{{product.id}}"
-                data-bs-backdrop="static"
                 tabindex="-1"
                 aria-labelledby="exampleModalLabel"
                 aria-hidden="true"
               >
                 <div class="modal-dialog">
                   <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">
+                    <div class="modal-header p-0 ">
+                      <h5 class="modal-title text-center" id="exampleModalLabel">
                         <strong>{{ product.title }} </strong> added to cart.
                       </h5>
                     </div>
@@ -610,37 +456,37 @@
                     </p>
                     <table class="table table-hover mt-3">
                       <tbody>
-                      <tr>
-                          <td>Category</td>
-                          <td>: {{ product.category }}</td>
+                      <tr >
+                          <td class="py-1">Category</td>
+                          <td class="py-1">: {{ product.category }}</td>
                       </tr>
                       <tr>
-                          <td>Transist Risk:</td>
-                          <td>: {{product.risk}}</td>
+                          <td class="py-1">Transist Risk:</td>
+                          <td class="py-1">: {{product.risk}}</td>
                       </tr>
                       <tr>
-                          <td>Size</td>
-                          <td>: {{product.size}} Inches </td>
+                          <td class="py-1">Size</td>
+                          <td class="py-1">: {{product.size}} Inches </td>
                       </tr>
                       <tr>
-                          <td>Price</td>
-                          <td>:                       {% if product.orgprice != product.price %}
+                          <td class="py-1">Price</td>
+                          <td class="py-1">:                       {% if product.orgprice != product.price %}
                             <strike>&#8377;{{product.orgprice}}</strike>
                             {% endif %}
                             <b> &#8377; {{ product.price }}</b>
                           </td>
                       </tr>
                       <tr>
-                          <td>Watering</td>
-                          <td>: {{product.Watering}}</td>
+                          <td class="py-1">Watering</td>
+                          <td class="py-1">: {{product.Watering}}</td>
                       </tr>
                       <tr>
-                          <td>Sunlight</td>
-                          <td>: {{product.sun}}</td>
+                          <td class="py-1">Sunlight</td>
+                          <td class="py-1">: {{product.sun}}</td>
                       </tr>
                       <tr>
-                        <td>Maintenance</td>
-                        <td>: {{product.maintenance}}</td>
+                        <td class="py-1">Maintenance</td>
+                        <td class="py-1">: {{product.maintenance}}</td>
                       </tr>
                       <tr>
                         <td>
@@ -658,16 +504,20 @@
                       </tr>
                       </tbody>
                     </table>                      
-                    <div class="modal-footer">
-                      
-                      <button type="submit" class="btn btn-primary" href="/" onclick="reloadPage();">
-                        Select more
-                      </button>
-                      <form action="/">
+                    <div class="modal-footer py-1">
+                    
+                      <form action="/basket/">
                         <button type="submit" class="btn btn-success" >
                           Check Bill
                         </button>
                       </form>
+                      <button
+                      type="button"
+                      class="btn btn-primary"
+                      data-bs-dismiss="modal"
+                    >
+                      Select More
+                    </button>
                     </div>
                   </div>
                 </div>

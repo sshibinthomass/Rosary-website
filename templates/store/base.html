@@ -445,10 +445,7 @@
                             <a type="button" class="nav-link btn btn-outline-secondary py-1" href="/index"><strong>Home</strong></a>
                         </li>
                         <li class="nav-item pl-2 my-1">
-                          <form action="/#catalogue" method="post">
-                            {% csrf_token %}
-                            <a type="button" class="nav-link btn btn-outline-secondary py-1" href="/#catalogue" ><strong>Catalogue</strong></a>
-                            </form>
+                            <a type="button" class="nav-link btn btn-outline-secondary py-1" href="/"><strong>Catalogue</strong></a>
                         </li>
                         <li class="nav-item pl-2 my-1">
                           <a type="button" class="nav-link btn btn-outline-secondary py-1" href="/faq/"><strong>FAQ</strong></a>
@@ -496,7 +493,7 @@
                           <a type="button" class="nav-link btn btn-outline-secondary py-1" target="_blank" href="https://rosaryplanthouse.wixsite.com/shibin/blog"><strong>Care</strong></a>
                       </li>
                     </ul>
-                    <a type="button" role="button" href="/"
+                    <a type="button" role="button" href="/basket/"
                         class="nav-link btn btn-outline-secondary py-1 pl-2 ml-1">
 <strong>
                         {% with total_qty=basket|length %}
@@ -529,7 +526,7 @@
 <!-- Footer -->
 {% block footer %}
 
-<a class="btn btn-success" href="/" role="button" style="position: fixed; bottom: 55px; left: 10px; " >
+<a class="btn btn-success" href="/basket/" role="button" style="position: fixed; bottom: 55px; left: 10px; " >
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
   class="bi bi-cart3" viewBox="0 0 16 16">
   <path
@@ -537,19 +534,7 @@
 </svg>
 </a>
 
-<a class="btn btn-success fab fa-whatsapp pr-4" href="https://api.whatsapp.com/send?phone=%2B917904050237&text=*Hello, i have chosen the following plants from your site*
-%0a
-{% for item in basket %}
-   {% with product=item.product %}{{product.pid}}.{{ product.title }}-{{item.qty}}*{{product.price}}={{item.qty|mul:product.price}}/- %0a{% endwith %}
-{% endfor %}
-*Total Plants={{basket|length}}*%0a
-*Total Price={{basket.get_total_price}}*%2Bdelivery%0a%0a
-*Plant Id and qty*%0a 
-{% for item in basket %}{% with product=item.product %}{{product.pid}}-{{item.qty}},{% endwith %}{% endfor %}%0a 
-{% if basket.get_total_price > 700 %}
-*%2BColmplementary plant*
-{% endif %}  
-" target="_blank" role="button" style="position: fixed; bottom: 55px; right: 10px; " >
+<a class="btn btn-success fab fa-whatsapp pr-4" href="https://api.whatsapp.com/send?phone=%2B917904050237&text=Hello, please help me to choose plants from your site." target="_blank" role="button" style="position: fixed; bottom: 55px; right: 10px; " >
   
 </a>
 <div class="fixed-bottom">
