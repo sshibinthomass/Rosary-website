@@ -61,11 +61,17 @@ def local(request):
   pid=[]
   name=[]
   photo=[]
+  ava=[]
   for i in Product.objects.order_by('pid'):
     name.append(i.Nickname)
     pid.append(i.pid)
     photo.append(i.image.url)
-  prod=zip(pid,name,photo)
+    if i.is_active==True:
+      val="Available"
+    else:
+      val="Not Available"
+    ava.append(val)
+  prod=zip(pid,name,photo,ava)
   typen="All Plants List"
   return render(request,'store/local.html',{'prod':prod,'typen':typen})
 
@@ -73,11 +79,13 @@ def localava(request):
   pid=[]
   name=[]
   photo=[]
+  null=[]
   for i in Product.products.order_by('pid'):
     name.append(i.Nickname)
     pid.append(i.pid)
     photo.append(i.image.url)
-  prod=zip(pid,name,photo)
+    null.append("")
+  prod=zip(pid,name,photo,null)
   typen="Available Plants List"
   return render(request,'store/local.html',{'prod':prod,'typen':typen})
 

@@ -14,9 +14,9 @@
           <th class="p-0" scope="col">Plant Name</th>
           <th class="p-0" scope="col">Photo</th>
         </tr>
-        {% for i,j,k in prod %}
+        {% for i,j,k,l in prod %}
         <tr>
-          <td class="p-0 pt-4" scope="row"><b>{{i}}.{{j}}</b></td>
+          <td class="p-0 pt-4" scope="row"><b>{{i}}.{{j}} | {{l}} </b></td>
           <td class="p-0">
             <img
               src="{{k}}"
