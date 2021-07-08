@@ -19,11 +19,11 @@
         <th class="p-0" scope="col">Photo</th>
       </tr>
 
-      {% for i,j,k,l,m,n in plantID %}
+      {% for i,j,k,l,m,n,o in plantID %}
       <tr>
         <th class="p-0" scope="row"><b>{{i}}</b></th>
         <td class="p-0">{{j}}</td>
-        <td class="p-0">{{k}}</td>
+        <td class="p-0">{{k}}-{{o}}</td>
         <td class="p-0">{{l}}</td>
         <td class="p-0">{{l}}x{{n}}= &#8377;{{l|mul:n}}</td>
         <td class="p-0">
